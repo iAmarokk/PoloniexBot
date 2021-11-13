@@ -7,37 +7,46 @@
         xmlns:local="clr-namespace:PoloniexBot" 
         xmlns:models="clr-namespace:PoloniexBot.Models"
         mc:Ignorable="d"
-        Title="Test" 
+        Title="{Binding Title}" 
         Height="450" Width="800" >
     <Grid>
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="0.8*" />
-    </Grid.ColumnDefinitions>
-    <ListBox Grid.Column="0" ItemsSource="{Binding Currencies}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.8*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.2*" />
+        </Grid.RowDefinitions>
+        <ListBox Grid.Column="0" ItemsSource="{Binding Currencies}"
                  SelectedItem="{Binding SelectedCoin}">
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Margin="5">
-                    <TextBlock FontSize="18" Text="{Binding Path=Name}" />
-                    <TextBlock Text="{Binding Path=Values.available}" />
-                    <TextBlock Text="{Binding Path=Values.onOrders}" />
-                    <TextBlock Text="{Binding Path=Values.btcValue}" />
-                </StackPanel>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                        <TextBlock Text="{Binding Path=Values.available}" />
+                        <TextBlock Text="{Binding Path=Values.onOrders}" />
+                        <TextBlock Text="{Binding Path=Values.btcValue}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-    <StackPanel Grid.Column="1" DataContext="{Binding SelectedCoin}">
-        <TextBlock Text="Выбранный элемент"  />
-        <TextBlock Text="Название" />
+        <StackPanel Grid.Column="1" DataContext="{Binding SelectedCoin}">
+            <TextBlock Text="Выбранный элемент"  />
+            <TextBlock Text="Название" />
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="Доступное количество" />
+            <TextBlock Text="Доступное количество" />
             <TextBox Text="{Binding Values.available, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="В ордерах" />
+            <TextBlock Text="В ордерах" />
             <TextBox Text="{Binding Values.onOrders, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Значение в BTC" />
             <TextBox Text="{Binding Values.btcValue, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Значение в BTC"/>
+            <TextBox Text="{Binding TotalAssets, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </Grid>
 </Window>
