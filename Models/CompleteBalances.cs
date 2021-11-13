@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,7 +13,7 @@ namespace PoloniexBot.Models
 		public string Coin { get; set; }
 		public decimal Balance { get; set; }
 
-		public Currencies Get()
+		public List<Coin> Get()
 		{
 
 			using HttpClient httpClient = new HttpClient();
@@ -35,13 +36,23 @@ namespace PoloniexBot.Models
 
 			string result = response.Content.ReadAsStringAsync().Result;
 
-			Currencies currencies = JsonConvert.DeserializeObject<Currencies>(result);
+			//Currencies currencies = JsonConvert.DeserializeObject<Currencies>(result);
 
 			//<Dictionary<string, string>> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
 
+			JEnumerable<JToken> x = JsonConvert.DeserializeObject<JObject>(result).Children();
 
+			List<Coin> Coins = new List<Coin>();
 
-			return null;
+			foreach (JToken item in x)
+			{
+				Coin coin = new Coin();
+				coin.Name = item.Path;
+				coin.Name = ((JProperty)item).Name;
+				coin.Values = JsonConvert.DeserializeObject<CoinValues>(item.First.ToString());
+			}
+
+			return Coins;
 		}
 	}
 

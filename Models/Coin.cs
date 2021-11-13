@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace PoloniexBot.Models
 {
-	public class MyObject
+	public class Coin
 	{
-		public string Key { get; set; }
-		public string Value { get; set; }
+		public string Name { get; set; }
+		public CoinValues Values { get; set; }
+	}
+
+	public class CoinValues
+	{
+		public string available { get; set; }
+		public string onOrders { get; set; }
+		public string btcValue { get; set; }
 	}
 }
