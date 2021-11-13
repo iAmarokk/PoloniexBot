@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PoloniexBot.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PoloniexBot.Models
 {
-	public class Coin
+	public class Coin : ViewModel
 	{
 		public string Name { get; set; }
 		public CoinValues Values { get; set; }

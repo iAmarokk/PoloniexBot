@@ -11,6 +11,7 @@ namespace PoloniexBot.Models
 	public class BaseRequest
 	{
 		public string PrivateHTTPEndpoint = $@"https://poloniex.com/tradingApi";
+		public static string PublicHTTPEndpoint = $@"https://poloniex.com/public";
 
 		protected string key;
 		protected string secret;

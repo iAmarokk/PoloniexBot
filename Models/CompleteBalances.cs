@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 
 namespace PoloniexBot.Models
@@ -13,7 +14,7 @@ namespace PoloniexBot.Models
 		public string Coin { get; set; }
 		public decimal Balance { get; set; }
 
-		public List<Coin> Get()
+		public ObservableCollection<Coin> Get()
 		{
 
 			using HttpClient httpClient = new HttpClient();
@@ -36,23 +37,22 @@ namespace PoloniexBot.Models
 
 			string result = response.Content.ReadAsStringAsync().Result;
 
-			//Currencies currencies = JsonConvert.DeserializeObject<Currencies>(result);
+			//Dictionary<string, CoinValues> res = JsonConvert.DeserializeObject<Dictionary<string, CoinValues>>(result);
 
-			//<Dictionary<string, string>> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
-
+			#region JToken
 			JEnumerable<JToken> x = JsonConvert.DeserializeObject<JObject>(result).Children();
-
-			List<Coin> Coins = new List<Coin>();
-
+			ObservableCollection<Coin> Coins = new ObservableCollection<Coin>();
 			foreach (JToken item in x)
 			{
 				Coin coin = new Coin();
 				coin.Name = item.Path;
-				coin.Name = ((JProperty)item).Name;
 				coin.Values = JsonConvert.DeserializeObject<CoinValues>(item.First.ToString());
+				Coins.Add(coin);
 			}
-
 			return Coins;
+			#endregion
+
+			//return res;
 		}
 	}
 
