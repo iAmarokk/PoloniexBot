@@ -42,6 +42,8 @@
             <TextBox Text="{Binding Values.onOrders, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Значение в BTC" />
             <TextBox Text="{Binding Values.btcValue, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock/>
+            <Button Height="30" Content="Авторизация" Click="Login_Click" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
