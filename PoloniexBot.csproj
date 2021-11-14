@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

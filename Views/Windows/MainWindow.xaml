@@ -43,7 +43,9 @@
             <TextBlock Text="Значение в USDT" />
             <TextBox Text="{Binding USDTPrice}" />
             <TextBlock Text="Значение в BTC" />
-            <TextBox Text="{Binding Values.btcValue}" />
+            <TextBox Text="{Binding Values.btcValue, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock/>
+            <Button Height="30" Content="Авторизация" Click="Login_Click" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Vertical">
