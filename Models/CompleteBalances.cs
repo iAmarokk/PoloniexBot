@@ -7,29 +7,25 @@ using System.Net.Http;
 
 namespace PoloniexBot.Models
 {
-	public class CompleteBalances : BaseRequest
+	public static class CompleteBalances
 	{
-		public string request = "returnCompleteBalances";
+		private static string request = "returnCompleteBalances";
 
-		public string Coin { get; set; }
-		public decimal Balance { get; set; }
-
-		public ObservableCollection<Coin> Get()
+		public static ObservableCollection<Coin> Get()
 		{
-
 			using HttpClient httpClient = new HttpClient();
 
-			httpClient.BaseAddress = new Uri(this.PrivateHTTPEndpoint);
-			httpClient.DefaultRequestHeaders.Add("Key", this.key);
+			httpClient.BaseAddress = new Uri(BaseRequest.PrivateHTTPEndpoint);
+			httpClient.DefaultRequestHeaders.Add("Key", BaseRequest.Key);
 
 			KeyValuePair<string, string>[] param = {
-					new("command", this.request),
+					new("command", CompleteBalances.request),
 					new("nonce", DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()),
 				};
 
 			FormUrlEncodedContent content = new FormUrlEncodedContent(param);
 			string body = content.ReadAsStringAsync().Result;
-			string sign = BaseRequest.Sign(this.secret, body);
+			string sign = BaseRequest.Sign(BaseRequest.Secret, body);
 			httpClient.DefaultRequestHeaders.Add("Sign", sign);
 
 			HttpResponseMessage response = httpClient.PostAsync("", content).Result;
@@ -47,6 +43,7 @@ namespace PoloniexBot.Models
 				Coin coin = new Coin();
 				coin.Name = item.Path;
 				coin.Values = JsonConvert.DeserializeObject<CoinValues>(item.First.ToString());
+				coin.Values.ParseValues();
 				Coins.Add(coin);
 			}
 			return Coins;
@@ -54,10 +51,5 @@ namespace PoloniexBot.Models
 
 			//return res;
 		}
-	}
-
-	public class JSONCoin
-	{
-
 	}
 }

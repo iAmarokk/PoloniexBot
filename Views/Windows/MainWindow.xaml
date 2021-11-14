@@ -8,7 +8,7 @@
         xmlns:models="clr-namespace:PoloniexBot.Models"
         mc:Ignorable="d"
         Title="{Binding Title}" 
-        Height="450" Width="800" >
+        Height="600" Width="900" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -35,17 +35,21 @@
         <StackPanel Grid.Column="1" DataContext="{Binding SelectedCoin}">
             <TextBlock Text="Выбранный элемент"  />
             <TextBlock Text="Название" />
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Name}" />
             <TextBlock Text="Доступное количество" />
-            <TextBox Text="{Binding Values.available, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Values.available}" />
             <TextBlock Text="В ордерах" />
-            <TextBox Text="{Binding Values.onOrders, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Values.onOrders}" />
+            <TextBlock Text="Значение в USDT" />
+            <TextBox Text="{Binding USDTPrice}" />
             <TextBlock Text="Значение в BTC" />
-            <TextBox Text="{Binding Values.btcValue, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Values.btcValue}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBlock Text="Значение в BTC"/>
+        <StackPanel Grid.Row="4" Orientation="Vertical">
+            <Button Command="{Binding UpdateBalancesCommand}">Обновить балансы</Button>
+            <Button Command="{Binding NotNullBalancesCommand}" Content="Убрать нулевые балансы"/>
+            <TextBlock Text="Сумма всех активов - "/>
             <TextBox Text="{Binding TotalAssets, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </Grid>

@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace PoloniexBot.Models
 {
-	public class BaseRequest
+	public static class BaseRequest
 	{
-		public string PrivateHTTPEndpoint = $@"https://poloniex.com/tradingApi";
+		public static string PrivateHTTPEndpoint = $@"https://poloniex.com/tradingApi";
 		public static string PublicHTTPEndpoint = $@"https://poloniex.com/public";
 
-		protected string key;
-		protected string secret;
+		public static string Key;
+		public static string Secret;
 
-		public BaseRequest()
+		static BaseRequest()
 		{
-			this.key = BaseRequest.ReadFromConfig("accountKey");
-			this.secret = BaseRequest.ReadFromConfig("accountSecret");
+			BaseRequest.Key = BaseRequest.ReadFromConfig("accountKey");
+			BaseRequest.Secret = BaseRequest.ReadFromConfig("accountSecret");
 		}
 
-		protected static string Sign(string secret, string body)
+		public static string Sign(string secret, string body)
 		{
 			byte[] keyBytes = Encoding.UTF8.GetBytes(secret);
 			using HMACSHA512 hmac = new HMACSHA512(keyBytes);

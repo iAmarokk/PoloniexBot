@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="NewFolder\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
