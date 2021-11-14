@@ -30,7 +30,13 @@ namespace PoloniexBot.ViewModels
 		}
 
 		public decimal PriceBTC { get; set; }
-		public decimal TotalAssets { get; set; }
+
+		private decimal totalAssets = 0;
+		public decimal TotalAssets 
+		{
+			get => this.totalAssets;
+			set => this.Set(ref this.totalAssets, value);
+		}
 
 		private ObservableCollection<Coin> сurrencies = new ObservableCollection<Coin>();
 		public ObservableCollection<Coin> Currencies
