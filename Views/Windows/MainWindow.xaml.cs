@@ -1,4 +1,5 @@
-﻿using PoloniexBot.ViewModels;
+﻿using PoloniexBot.Models;
+using PoloniexBot.ViewModels;
 using PoloniexBot.Views.Windows;
 using System.Windows;
 
@@ -23,13 +24,13 @@ namespace PoloniexBot
 			if (passwordWindow.ShowDialog() == true)
 			{
 
-				var k = passwordWindow.Key;
-				var s = passwordWindow.Secret;
+				BaseRequest.Key = passwordWindow.Key;
+				BaseRequest.Secret = passwordWindow.Secret;
 
-				if (passwordWindow.Key == "123")
-					MessageBox.Show("Авторизация пройдена");
-				else
-					MessageBox.Show("Неверный пароль");
+				//if (passwordWindow.Key == "123")
+				//	MessageBox.Show("Авторизация пройдена");
+				//else
+				//	MessageBox.Show("Неверный пароль");
 			}
 			else
 			{
