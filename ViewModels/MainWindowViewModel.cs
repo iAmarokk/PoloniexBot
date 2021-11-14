@@ -64,12 +64,17 @@ namespace PoloniexBot.ViewModels
 				{
 					item.USDTPrice = decimal.Parse(ticker.last, CultureInfo.InvariantCulture);
 				}
+				else if(this.CoinTicket.TryGetValue(string.Format("BTC_{0}", item.Name), out ReturnTicker tickerBTC))
+				{
+					item.USDTPrice = decimal.Parse(tickerBTC.last, CultureInfo.InvariantCulture) * this.PriceBTC;
+				}
 
 				if (item.Values.btcValueDecimal > 0)
 				{
 					this.TotalAssets += item.Values.btcValueDecimal * this.PriceBTC;
 				}
 			}
+			this.RemoveNullPriceCoins();
 			//this.Currencies = new ObservableCollection<Coin>(this.сurrencies);
 		}
 
@@ -79,6 +84,20 @@ namespace PoloniexBot.ViewModels
 			foreach (Coin item in this.Currencies)
 			{
 				if (item.Values.btcValueDecimal > 0)
+				{
+					result.Add(item);
+				}
+			}
+			this.Currencies = new ObservableCollection<Coin>(result);
+			//this.Currencies.CollectionChanged += result;
+		}
+
+		private void RemoveNullPriceCoins()
+		{
+			List<Coin> result = new List<Coin>();
+			foreach (Coin item in this.Currencies)
+			{
+				if (item.USDTPrice > 0)
 				{
 					result.Add(item);
 				}
