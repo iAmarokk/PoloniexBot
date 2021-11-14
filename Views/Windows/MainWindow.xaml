@@ -10,49 +10,63 @@
         Title="{Binding Title}" 
         Height="600" Width="900" >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0.8*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
-        <ListBox Grid.Column="0" ItemsSource="{Binding Currencies}"
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Меню">
+                <MenuItem Header="Авторизация" Click="Login_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Выход" ></MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.2*" />
+            </Grid.RowDefinitions>
+
+            <ListBox Grid.Column="0" ItemsSource="{Binding Currencies}"
                  SelectedItem="{Binding SelectedCoin}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
-                        <TextBlock Text="{Binding Path=Values.available}" />
-                        <TextBlock Text="{Binding Path=Values.onOrders}" />
-                        <TextBlock Text="{Binding Path=Values.btcValue}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                            <TextBlock Text="{Binding Path=Values.available}" />
+                            <TextBlock Text="{Binding Path=Values.onOrders}" />
+                            <TextBlock Text="{Binding Path=Values.btcValue}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-        <StackPanel Grid.Column="1" DataContext="{Binding SelectedCoin}">
-            <TextBlock Text="Выбранный элемент"  />
-            <TextBlock Text="Название" />
-            <TextBox Text="{Binding Name}" />
-            <TextBlock Text="Доступное количество" />
-            <TextBox Text="{Binding Values.available}" />
-            <TextBlock Text="В ордерах" />
-            <TextBox Text="{Binding Values.onOrders}" />
-            <TextBlock Text="Значение в USDT" />
-            <TextBox Text="{Binding USDTPrice}" />
-            <TextBlock Text="Значение в BTC" />
-            <TextBox Text="{Binding Values.btcValue, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock/>
-            <Button Height="30" Content="Авторизация" Click="Login_Click" />
-        </StackPanel>
+            <StackPanel Grid.Column="1" DataContext="{Binding SelectedCoin}">
+                <TextBlock Text="Выбранный элемент"  />
+                <TextBlock Text="Название" />
+                <TextBox Text="{Binding Name}" />
+                <TextBlock Text="Доступное количество" />
+                <TextBox Text="{Binding Values.available}" />
+                <TextBlock Text="В ордерах" />
+                <TextBox Text="{Binding Values.onOrders}" />
+                <TextBlock Text="Значение в USDT" />
+                <TextBox Text="{Binding USDTPrice}" />
+                <TextBlock Text="Значение в BTC" />
+                <TextBox Text="{Binding Values.btcValue, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock/>
+            </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Vertical">
-            <Button Command="{Binding UpdateBalancesCommand}">Обновить балансы</Button>
-            <Button Command="{Binding NotNullBalancesCommand}" Content="Убрать нулевые балансы"/>
-            <TextBlock Text="Сумма всех активов - "/>
-            <TextBox Text="{Binding TotalAssets, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
+            <StackPanel Grid.Row="4" Orientation="Vertical">
+                <Button Command="{Binding UpdateBalancesCommand}">Обновить балансы</Button>
+                <Button Command="{Binding NotNullBalancesCommand}" Content="Убрать нулевые балансы"/>
+                <TextBlock Text="Сумма всех активов - "/>
+                <TextBox Text="{Binding TotalAssets, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+        </Grid>
+
     </Grid>
 </Window>
